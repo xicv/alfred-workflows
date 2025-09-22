@@ -62,7 +62,11 @@ workflow-name/
 # Validate workflow plist
 plutil -lint workflow-name/info.plist
 
-# Create distributable package
+# Create distributable package (from inside workflow directory)
+cd workflow-name/
+zip -r ../workflow-name.alfredworkflow .
+
+# Or from parent directory (ensure files are at root level, not in subdirectory)
 zip -r workflow-name.alfredworkflow workflow-name/
 ```
 
