@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>bundleid</key>
+    <string>com.yourcompany.workflow.name</string>
+    <key>connections</key>
+    <dict>
+        <key>KEYWORD_INPUT</key>
+        <array>
+            <dict>
+                <key>destinationuid</key>
+                <string>SCRIPT_ACTION</string>
+                <key>modifiers</key>
+                <integer>0</integer>
+                <key>modifiersubtext</key>
+                <string></string>
+                <key>vitoclose</key>
+                <false/>
+            </dict>
+        </array>
+    </dict>
+    <key>createdby</key>
+    <string>Your Name</string>
+    <key>description</key>
+    <string>Describe what your workflow does</string>
+    <key>disabled</key>
+    <false/>
+    <key>name</key>
+    <string>Workflow Name</string>
+    <key>objects</key>
+    <array>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>argumenttype</key>
+                <integer>1</integer>
+                <key>keyword</key>
+                <string>keyword</string>
+                <key>subtext</key>
+                <string>Describe what to enter</string>
+                <key>text</key>
+                <string>Workflow Display Name</string>
+                <key>withspace</key>
+                <true/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.input.keyword</string>
+            <key>uid</key>
+            <string>KEYWORD_INPUT</string>
+            <key>version</key>
+            <integer>1</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>concurrently</key>
+                <false/>
+                <key>escaping</key>
+                <integer>102</integer>
+                <key>script</key>
+                <string>#!/bin/bash
+
+# Get the query from Alfred
+query="{query}"
+
+# Your script logic here
+# Example: echo "You entered: $query"
+
+case "$query" in
+    "option1")
+        # Action for option1
+        echo "Executing option 1"
+        ;;
+    "option2")
+        # Action for option2
+        echo "Executing option 2"
+        ;;
+    *)
+        # Default action or help
+        echo "Usage: keyword [option1|option2]"
+        ;;
+esac</string>
+                <key>scriptargtype</key>
+                <integer>0</integer>
+                <key>scriptfile</key>
+                <string></string>
+                <key>type</key>
+                <integer>0</integer>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.action.script</string>
+            <key>uid</key>
+            <string>SCRIPT_ACTION</string>
+            <key>version</key>
+            <integer>2</integer>
+        </dict>
+    </array>
+    <key>uidata</key>
+    <dict>
+        <key>KEYWORD_INPUT</key>
+        <dict>
+            <key>xpos</key>
+            <real>145</real>
+            <key>ypos</key>
+            <real>145</real>
+        </dict>
+        <key>SCRIPT_ACTION</key>
+        <dict>
+            <key>xpos</key>
+            <real>345</real>
+            <key>ypos</key>
+            <real>145</real>
+        </dict>
+    </dict>
+    <key>version</key>
+    <string>1.0</string>
+    <key>webaddress</key>
+    <string></string>
+</dict>
+</plist>
