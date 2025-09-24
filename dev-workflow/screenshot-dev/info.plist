@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.dev.screenshot</string>
+    <key>connections</key>
+    <dict>
+        <key>a09c4e3c-dcc5-4163-bb6d-d7a0dbf32cd0</key>
+        <array>
+            <dict>
+                <key>destinationuid</key>
+                <string>f726689d-0778-49c7-8f7e-4e8266264185</string>
+                <key>modifiers</key>
+                <integer>0</integer>
+                <key>modifiersubtext</key>
+                <string></string>
+                <key>vitoclose</key>
+                <false/>
+            </dict>
+        </array>
+    </dict>
+    <key>createdby</key>
+    <string>Development Screenshot Capture</string>
+    <key>description</key>
+    <string>Enhanced screenshot capture for development workflow</string>
+    <key>disabled</key>
+    <false/>
+    <key>name</key>
+    <string>Dev Screenshot</string>
+    <key>objects</key>
+    <array>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>argumenttype</key>
+                <integer>1</integer>
+                <key>keyword</key>
+                <string>devsc</string>
+                <key>subtext</key>
+                <string>Enter error, bug, feature, or ui</string>
+                <key>text</key>
+                <string>Development Screenshot</string>
+                <key>withspace</key>
+                <true/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.input.keyword</string>
+            <key>uid</key>
+            <string>a09c4e3c-dcc5-4163-bb6d-d7a0dbf32cd0</string>
+            <key>version</key>
+            <integer>1</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>concurrently</key>
+                <false/>
+                <key>escaping</key>
+                <integer>102</integer>
+                <key>script</key>
+                <string>#!/bin/bash
+
+query="{query}"
+SCREENSHOT_DIR="$HOME/Desktop/dev-screenshots"
+mkdir -p "$SCREENSHOT_DIR"
+
+PROJECT_NAME=$(pwd | xargs basename)
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+case "$query" in
+    "error")
+        filename="error_${PROJECT_NAME}_${TIMESTAMP}.png"
+        ;;
+    "bug")
+        filename="bug_${PROJECT_NAME}_${TIMESTAMP}.png"
+        ;;
+    "feature")
+        filename="feature_${PROJECT_NAME}_${TIMESTAMP}.png"
+        ;;
+    "ui")
+        filename="ui_${PROJECT_NAME}_${TIMESTAMP}.png"
+        ;;
+    *)
+        filename="dev_${PROJECT_NAME}_${TIMESTAMP}.png"
+        ;;
+esac
+
+filepath="$SCREENSHOT_DIR/$filename"
+
+screencapture -i -s "$filepath"
+
+if [ -f "$filepath" ]; then
+    echo -n "$filepath" | pbcopy
+    osascript -e "display notification \"Screenshot captured: $filename\" with title \"Dev Screenshot\""
+    echo "Screenshot captured: $filename"
+else
+    echo "Screenshot cancelled"
+fi</string>
+                <key>scriptargtype</key>
+                <integer>0</integer>
+                <key>scriptfile</key>
+                <string></string>
+                <key>type</key>
+                <integer>0</integer>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.action.script</string>
+            <key>uid</key>
+            <string>f726689d-0778-49c7-8f7e-4e8266264185</string>
+            <key>version</key>
+            <integer>2</integer>
+        </dict>
+    </array>
+    <key>uidata</key>
+    <dict>
+        <key>a09c4e3c-dcc5-4163-bb6d-d7a0dbf32cd0</key>
+        <dict>
+            <key>xpos</key>
+            <real>145</real>
+            <key>ypos</key>
+            <real>145</real>
+        </dict>
+        <key>f726689d-0778-49c7-8f7e-4e8266264185</key>
+        <dict>
+            <key>xpos</key>
+            <real>345</real>
+            <key>ypos</key>
+            <real>145</real>
+        </dict>
+    </dict>
+    <key>version</key>
+    <string>1.0</string>
+    <key>webaddress</key>
+    <string></string>
+</dict>
+</plist>

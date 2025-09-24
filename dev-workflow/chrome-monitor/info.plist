@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.dev.chrome</string>
+    <key>connections</key>
+    <dict>
+        <key>53dfa308-78d1-4bf9-8242-50641ad9610c</key>
+        <array>
+            <dict>
+                <key>destinationuid</key>
+                <string>208f223f-9308-43c4-b255-0cc762545bc6</string>
+                <key>modifiers</key>
+                <integer>0</integer>
+                <key>modifiersubtext</key>
+                <string></string>
+                <key>vitoclose</key>
+                <false/>
+            </dict>
+        </array>
+    </dict>
+    <key>createdby</key>
+    <string>Chrome DevTools Monitor</string>
+    <key>description</key>
+    <string>Monitor Chrome DevTools and auto-capture errors</string>
+    <key>disabled</key>
+    <false/>
+    <key>name</key>
+    <string>Chrome Monitor</string>
+    <key>objects</key>
+    <array>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>argumenttype</key>
+                <integer>1</integer>
+                <key>keyword</key>
+                <string>chrome</string>
+                <key>subtext</key>
+                <string>errors, console, network, performance</string>
+                <key>text</key>
+                <string>Chrome DevTools Monitor</string>
+                <key>withspace</key>
+                <true/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.input.keyword</string>
+            <key>uid</key>
+            <string>53dfa308-78d1-4bf9-8242-50641ad9610c</string>
+            <key>version</key>
+            <integer>1</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>concurrently</key>
+                <false/>
+                <key>escaping</key>
+                <integer>102</integer>
+                <key>script</key>
+                <string>#!/bin/bash
+
+query="{query}"
+MONITOR_DIR="$HOME/Desktop/dev-monitor"
+mkdir -p "$MONITOR_DIR"
+
+PROJECT_NAME=$(pwd | xargs basename)
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+case "$query" in
+    "errors")
+        filename="chrome_errors_${PROJECT_NAME}_${TIMESTAMP}.log"
+        filepath="$MONITOR_DIR/$filename"
+
+        echo "Chrome Error Analysis" > "$filepath"
+        echo "Project: $PROJECT_NAME" >> "$filepath"
+        echo "Time: $(date)" >> "$filepath"
+        echo "" >> "$filepath"
+        echo "Instructions:" >> "$filepath"
+        echo "1. Open Chrome DevTools (Cmd+Option+I)" >> "$filepath"
+        echo "2. Go to Console tab" >> "$filepath"
+        echo "3. Copy any console errors" >> "$filepath"
+        echo "4. Paste below:" >> "$filepath"
+        echo "" >> "$filepath"
+        pbpaste >> "$filepath"
+
+        echo -n "$filepath" | pbcopy
+        osascript -e "display notification \"Chrome errors log created: $filename\" with title \"Chrome Monitor\""
+        echo "Chrome errors log created: $filename"
+        ;;
+    "console")
+        filename="chrome_console_${PROJECT_NAME}_${TIMESTAMP}.log"
+        filepath="$MONITOR_DIR/$filename"
+
+        echo "Chrome Console Log" > "$filepath"
+        echo "Project: $PROJECT_NAME" >> "$filepath"
+        echo "Time: $(date)" >> "$filepath"
+        echo "" >> "$filepath"
+        echo "Console output:" >> "$filepath"
+        echo "" >> "$filepath"
+        pbpaste >> "$filepath"
+
+        echo -n "$filepath" | pbcopy
+        osascript -e "display notification \"Console log created: $filename\" with title \"Chrome Monitor\""
+        echo "Console log created: $filename"
+        ;;
+    "network")
+        filename="network_${PROJECT_NAME}_${TIMESTAMP}.log"
+        filepath="$MONITOR_DIR/$filename"
+
+        echo "Network Request Analysis" > "$filepath"
+        echo "Project: $PROJECT_NAME" >> "$filepath"
+        echo "Time: $(date)" >> "$filepath"
+        echo "" >> "$filepath"
+        echo "Instructions:" >> "$filepath"
+        echo "1. Open Chrome DevTools (Cmd+Option+I)" >> "$filepath"
+        echo "2. Go to Network tab" >> "$filepath"
+        echo "3. Reproduce the issue" >> "$filepath"
+        echo "4. Copy network requests" >> "$filepath"
+        echo "5. Paste below:" >> "$filepath"
+        echo "" >> "$filepath"
+        pbpaste >> "$filepath"
+
+        echo -n "$filepath" | pbcopy
+        osascript -e "display notification \"Network log created: $filename\" with title \"Chrome Monitor\""
+        echo "Network log created: $filename"
+        ;;
+    "performance")
+        filename="performance_${PROJECT_NAME}_${TIMESTAMP}.log"
+        filepath="$MONITOR_DIR/$filename"
+
+        echo "Performance Analysis" > "$filepath"
+        echo "Project: $PROJECT_NAME" >> "$filepath"
+        echo "Time: $(date)" >> "$filepath"
+        echo "" >> "$filepath"
+        echo "Instructions:" >> "$filepath"
+        echo "1. Open Chrome DevTools (Cmd+Option+I)" >> "$filepath"
+        echo "2. Go to Performance tab" >> "$filepath"
+        echo "3. Record performance (Ctrl+E)" >> "$filepath"
+        echo "4. Copy performance metrics" >> "$filepath"
+        echo "5. Paste below:" >> "$filepath"
+        echo "" >> "$filepath"
+        pbpaste >> "$filepath"
+
+        echo -n "$filepath" | pbcopy
+        osascript -e "display notification \"Performance log created: $filename\" with title \"Chrome Monitor\""
+        echo "Performance log created: $filename"
+        ;;
+    *)
+        echo "Usage: chrome [errors|console|network|performance]"
+        ;;
+esac</string>
+                <key>scriptargtype</key>
+                <integer>0</integer>
+                <key>scriptfile</key>
+                <string></string>
+                <key>type</key>
+                <integer>0</integer>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.action.script</string>
+            <key>uid</key>
+            <string>208f223f-9308-43c4-b255-0cc762545bc6</string>
+            <key>version</key>
+            <integer>2</integer>
+        </dict>
+    </array>
+    <key>uidata</key>
+    <dict>
+        <key>53dfa308-78d1-4bf9-8242-50641ad9610c</key>
+        <dict>
+            <key>xpos</key>
+            <real>145</real>
+            <key>ypos</key>
+            <real>145</real>
+        </dict>
+        <key>208f223f-9308-43c4-b255-0cc762545bc6</key>
+        <dict>
+            <key>xpos</key>
+            <real>345</real>
+            <key>ypos</key>
+            <real>145</real>
+        </dict>
+    </dict>
+    <key>version</key>
+    <string>1.0</string>
+    <key>webaddress</key>
+    <string></string>
+</dict>
+</plist>

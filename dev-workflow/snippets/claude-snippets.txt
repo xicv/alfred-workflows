@@ -1,0 +1,62 @@
+# Alfred Snippets for Claude Code Integration
+# Import these into Alfred's Snippets section
+
+# Error Debugging Snippets
+err_analyze - Analyze error log: Analyze this error log and provide fixes: {clipboard}
+err_debug - Debug error: Debug this error and suggest solutions: {clipboard}
+err_fix - Fix error: Please fix this error: {clipboard}
+err_console - Console errors: Analyze these console errors: {clipboard}
+
+# Screenshot Analysis Snippets
+sc_error - Error screenshot: Analyze this error screenshot: {clipboard}
+sc_bug - Bug screenshot: Identify bugs in this screenshot: {clipboard}
+sc_ui - UI screenshot: Review this UI and suggest improvements: {clipboard}
+sc_feature - Feature screenshot: Analyze this feature implementation: {clipboard}
+
+# Code Review Snippets
+code_review - Code review: Review this code and suggest improvements: {clipboard}
+code_optimize - Optimize code: Optimize this code for performance: {clipboard}
+code_refactor - Refactor code: Refactor this code for better structure: {clipboard}
+code_debug - Debug code: Debug this code and fix issues: {clipboard}
+
+# Development Workflow Snippets
+dev_test - Test request: Run tests and fix any failures
+dev_build - Build request: Build the project and fix any build errors
+dev_deploy - Deploy request: Deploy the project and check for issues
+dev_monitor - Monitor request: Monitor the application for errors
+
+# Chrome DevTools Snippets
+chrome_errors - Chrome errors: Analyze these Chrome errors: {clipboard}
+chrome_console - Console analysis: Analyze this console output: {clipboard}
+chrome_network - Network analysis: Analyze these network requests: {clipboard}
+chrome_performance - Performance analysis: Analyze this performance data: {clipboard}
+
+# Project Context Snippets
+project_setup - Project setup: Setup development environment for this project
+project_context - Project context: Analyze this project structure and provide context
+project_deps - Dependencies: Review project dependencies and suggest updates
+project_config - Configuration: Review project configuration and suggest improvements
+
+# Git Workflow Snippets
+git_commit - Commit message: Generate a commit message for these changes: {clipboard}
+git_review - Code review: Review these git changes: {clipboard}
+git_merge - Merge analysis: Analyze this merge for conflicts: {clipboard}
+git_conflict - Conflict resolution: Resolve these git conflicts: {clipboard}
+
+# Documentation Snippets
+doc_readme - README: Generate README for this project: {clipboard}
+doc_api - API docs: Generate API documentation: {clipboard}
+doc_code - Code docs: Generate code documentation: {clipboard}
+doc_changelog - Changelog: Generate changelog for these changes: {clipboard}
+
+# Testing Snippets
+test_unit - Unit tests: Generate unit tests for this code: {clipboard}
+test_integration - Integration tests: Generate integration tests: {clipboard}
+test_e2e - E2E tests: Generate end-to-end tests: {clipboard}
+test_performance - Performance tests: Generate performance tests: {clipboard}
+
+# Security Snippets
+security_audit - Security audit: Perform security audit on this code: {clipboard}
+security_vulnerabilities - Vulnerabilities: Check for security vulnerabilities: {clipboard}
+security_headers - Security headers: Review security headers: {clipboard}
+encryption - Encryption: Review encryption implementation: {clipboard}

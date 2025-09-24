@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.dev.screenshot</string>
+    <key>connections</key>
+    <dict>
+        <key>D57A354B-6B0D-4B7F-9A8C-3B3A4B9C1E2D</key>
+        <array>
+            <dict>
+                <key>destinationuid</key>
+                <string>F8E2A4C7-9D1F-4A3E-8B7C-6A5B4C9D2E1F</string>
+                <key>modifiers</key>
+                <integer>0</integer>
+                <key>modifiersubtext</key>
+                <string></string>
+                <key>vitoclose</key>
+                <false/>
+            </dict>
+        </array>
+    </dict>
+    <key>createdby</key>
+    <string>Development Screenshot Capture</string>
+    <key>description</key>
+    <string>Enhanced screenshot capture for development workflow</string>
+    <key>disabled</key>
+    <false/>
+    <key>name</key>
+    <string>Dev Screenshot</string>
+    <key>objects</key>
+    <array>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>argumenttype</key>
+                <integer>1</integer>
+                <key>keyword</key>
+                <string>devsc</string>
+                <key>subtext</key>
+                <string>Enter error, bug, feature, or ui</string>
+                <key>text</key>
+                <string>Development Screenshot</key>
+                <key>withspace</key>
+                <true/>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.input.keyword</string>
+            <key>uid</key>
+            <string>D57A354B-6B0D-4B7F-9A8C-3B3A4B9C1E2D</string>
+            <key>version</key>
+            <integer>1</integer>
+        </dict>
+        <dict>
+            <key>config</key>
+            <dict>
+                <key>concurrently</key>
+                <false/>
+                <key>escaping</key>
+                <integer>102</integer>
+                <key>script</key>
+                <string>#!/bin/bash
+
+query="{query}"
+SCREENSHOT_DIR="$HOME/Desktop/dev-screenshots"
+mkdir -p "$SCREENSHOT_DIR"
+
+# Get project name from current directory
+PROJECT_NAME=$(pwd | xargs basename)
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+case "$query" in
+    "error")
+        filename="error_${PROJECT_NAME}_${TIMESTAMP}.png"
+        context="Error screenshot for ${PROJECT_NAME}"
+        ;;
+    "bug")
+        filename="bug_${PROJECT_NAME}_${TIMESTAMP}.png"
+        context="Bug screenshot for ${PROJECT_NAME}"
+        ;;
+    "feature")
+        filename="feature_${PROJECT_NAME}_${TIMESTAMP}.png"
+        context="Feature screenshot for ${PROJECT_NAME}"
+        ;;
+    "ui")
+        filename="ui_${PROJECT_NAME}_${TIMESTAMP}.png"
+        context="UI screenshot for ${PROJECT_NAME}"
+        ;;
+    *)
+        filename="dev_${PROJECT_NAME}_${TIMESTAMP}.png"
+        context="Development screenshot for ${PROJECT_NAME}"
+        ;;
+esac
+
+filepath="$SCREENSHOT_DIR/$filename"
+
+# Take screenshot with interactive selection
+screencapture -i -s "$filepath"
+
+if [ -f "$filepath" ]; then
+    # Copy file path to clipboard
+    echo -n "$filepath" | pbcopy
+
+    # Create context file for Claude Code
+    context_file="$SCREENSHOT_DIR/screenshot_context_${TIMESTAMP}.txt"
+    cat > "$context_file" << EOF
+Screenshot Context:
+- Type: $query
+- Project: $PROJECT_NAME
+- Timestamp: $(date)
+- File: $filepath
+- Context: $context
+
+Analysis Request:
+Please analyze this screenshot and provide:
+1. Description of what you see
+2. Any issues or bugs identified
+3. Suggestions for improvement
+4. Next steps for development
+
+EOF
+
+    # Show notification
+    osascript -e "display notification \"Screenshot captured: $filename\" with title \"Dev Screenshot\""
+
+    # Auto-open Claude Code with the image
+    if command -v claude &> /dev/null; then
+        claude "Analyze this development screenshot: $filepath. Context: $context. See additional context in: $context_file"
+    fi
+
+    echo "Screenshot captured: $filename"
+else
+    echo "Screenshot cancelled"
+fi</string>
+                <key>scriptargtype</key>
+                <integer>0</integer>
+                <key>scriptfile</key>
+                <string></string>
+                <key>type</key>
+                <integer>0</integer>
+            </dict>
+            <key>type</key>
+            <string>alfred.workflow.action.script</string>
+            <key>uid</key>
+            <string>F8E2A4C7-9D1F-4A3E-8B7C-6A5B4C9D2E1F</string>
+            <key>version</key>
+            <integer>2</integer>
+        </dict>
+    </array>
+    <key>uidata</key>
+    <dict>
+        <key>D57A354B-6B0D-4B7F-9A8C-3B3A4B9C1E2D</key>
+        <dict>
+            <key>xpos</key>
+            <real>145</real>
+            <key>ypos</key>
+            <real>145</real>
+        </dict>
+        <key>F8E2A4C7-9D1F-4A3E-8B7C-6A5B4C9D2E1F</key>
+        <dict>
+            <key>xpos</key>
+            <real>345</real>
+            <key>ypos</key>
+            <real>145</real>
+        </dict>
+    </dict>
+    <key>version</key>
+    <string>1.0</string>
+    <key>webaddress</key>
+    <string></string>
+</dict>
+</plist>
