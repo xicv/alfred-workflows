@@ -40,18 +40,23 @@ This comprehensive development workflow integrates Alfred, Claude Code, and Chro
 
 ### 1. Install Alfred Workflows
 
+**Note: Development workflows are now pre-installed in Alfred's sync directory and ready to use immediately:**
+
+- **Dev Screenshot**: `devsc` keyword
+- **Chrome Monitor**: `chrome` keyword
+
+**Optional: Manual installation from .alfredworkflow files:**
 ```bash
-# Install the workflows
 cd dev-workflow
 
-# Error Logger
-open error-logger
+# Error Logger (optional)
+open error-logger.alfredworkflow
 
-# Dev Screenshot
-open screenshot-dev
+# Dev Screenshot (already pre-installed)
+open screenshot-dev.alfredworkflow
 
-# Chrome Monitor
-open chrome-monitor
+# Chrome Monitor (already pre-installed)
+open chrome-monitor.alfredworkflow
 ```
 
 ### 2. Setup Development Scripts
@@ -72,10 +77,10 @@ echo 'export PATH="$PATH:$(pwd)/scripts"' >> ~/.bashrc
 
 ### 4. Configure Directories
 
-The scripts create these directories automatically:
+The workflows create these directories automatically:
 - `~/Desktop/dev-logs/` - Error logs and debugging info
-- `~/Desktop/dev-screenshots/` - Development screenshots
-- `~/Desktop/dev-monitor/` - Monitoring data
+- `~/Desktop/dev-screenshots/` - Development screenshots (created by `devsc`)
+- `~/Desktop/dev-monitor/` - Monitoring data (created by `chrome`)
 - `~/Desktop/dev-scripts/` - Development scripts
 
 ## Usage
@@ -118,11 +123,23 @@ scripts/dev-integration.sh context /path/to/project
 ```
 
 #### Daily Development
-1. Start monitoring: `scripts/auto-debug.sh monitor`
-2. Work on your code
-3. Errors auto-captured and sent to Claude Code
-4. Screenshots taken when changes detected
-5. Claude Code provides analysis and fixes
+1. **Start monitoring**: `scripts/auto-debug.sh monitor`
+2. **Work on your code**
+3. **Use pre-installed workflows**:
+   - `devsc [error|bug|feature|ui]` for screenshots
+   - `chrome [errors|console|network|performance]` for Chrome DevTools
+4. **Use smart snippets** for Claude Code analysis
+5. **Claude Code provides analysis and fixes**
+
+#### Quick Testing
+Both workflows are pre-installed and ready to use:
+```bash
+# Test development screenshot
+devsc bug
+
+# Test Chrome monitor
+chrome errors
+```
 
 ### Chrome DevTools Integration
 
@@ -255,10 +272,26 @@ For advanced MCP integration, add these servers to your Claude Code configuratio
 
 ### Common Issues
 
-1. **Chrome not responding**: Make sure Chrome is running and accessible
-2. **Claude Code not found**: Install Claude Code from Anthropic
-3. **Permissions not working**: Check Alfred permissions in System Preferences
-4. **Screenshots not saving**: Check Desktop permissions
+1. **Workflows not showing in Alfred**:
+   - Workflows are pre-installed in Alfred's sync directory
+   - Restart Alfred if needed
+   - Check Alfred Preferences → Workflows
+
+2. **Chrome not responding**: Make sure Chrome is running and accessible
+3. **Claude Code not found**: Install Claude Code from Anthropic
+4. **Permissions not working**: Check Alfred permissions in System Preferences
+5. **Screenshots not saving**: Check Desktop permissions for `~/Desktop/dev-screenshots/`
+
+### Quick Test
+
+Verify workflows are working:
+```bash
+# Test devsc workflow
+devsc bug
+
+# Test chrome workflow
+chrome errors
+```
 
 ### Debug Mode
 
