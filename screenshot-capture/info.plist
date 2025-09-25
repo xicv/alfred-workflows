@@ -66,17 +66,20 @@ query="{query}"
 case "$query" in
     "fs")
         filename="Screenshot_$(date +%Y%m%d_%H%M%S).png"
-        screencapture -x ~/Desktop/"$filename"
+        mkdir -p ~/Desktop/dev-screenshots
+        screencapture -x ~/Desktop/dev-screenshots/"$filename"
         echo -n "$filename" | pbcopy
         ;;
     "w")
         filename="Screenshot_$(date +%Y%m%d_%H%M%S).png"
-        screencapture -i -W ~/Desktop/"$filename"
+        mkdir -p ~/Desktop/dev-screenshots
+        screencapture -i -W ~/Desktop/dev-screenshots/"$filename"
         echo -n "$filename" | pbcopy
         ;;
     "s")
         filename="Screenshot_$(date +%Y%m%d_%H%M%S).png"
-        screencapture -i -s ~/Desktop/"$filename"
+        mkdir -p ~/Desktop/dev-screenshots
+        screencapture -i -s ~/Desktop/dev-screenshots/"$filename"
         echo -n "$filename" | pbcopy
         ;;
     *)
