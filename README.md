@@ -11,7 +11,7 @@ A curated collection of Alfred 5.7+ workflows with comprehensive development too
   - `sc fs` - Full screen screenshot
   - `sc w` - Window screenshot
   - `sc s` - Selection screenshot
-- **Features**: Auto-saves to Desktop, copies filename to clipboard
+- **Features**: Auto-saves to `~/Desktop/dev-screenshots/`, copies filename to clipboard, creates directory if needed
 - **Directory**: `screenshot-capture/`
 
 ### 🚀 Optimized Development Workflows
