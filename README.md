@@ -209,6 +209,28 @@ cd dev-workflow/
 zip -r development-workflows.zip *.alfredworkflow scripts/ snippets/
 ```
 
+**⚠️ Critical: Alfred Workflow Structure Requirement**
+Alfred workflows require files to be at the **root level** of the zip package, not in a subdirectory.
+
+**Correct structure:**
+```
+workflow-name.alfredworkflow
+├── info.plist
+├── icon.icns
+└── README.md
+```
+
+**Incorrect structure (will fail to import):**
+```
+workflow-name.alfredworkflow
+└── workflow-name/
+    ├── info.plist
+    ├── icon.icns
+    └── README.md
+```
+
+**Always test workflow import after packaging!**
+
 ### Best Practices
 - Use the provided template for consistency
 - Test workflows thoroughly before distribution

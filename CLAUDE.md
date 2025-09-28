@@ -6,6 +6,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a Alfred workflow development kit containing working workflows, templates, and comprehensive documentation for creating Alfred 5.7+ workflows in 2025. The repository focuses on modern Alfred workflow development with validated plist structures and best practices.
 
+## Critical Architecture Notes
+
+**⚠️ Alfred Workflow Package Structure**: Alfred workflows require files to be at the **root level** of the zip package, not in a subdirectory. This is the most common cause of import failures.
+
+**Correct structure for .alfredworkflow files:**
+```
+workflow-name.alfredworkflow
+├── info.plist
+├── icon.icns
+└── README.md
+```
+
+**Incorrect structure (will fail to import):**
+```
+workflow-name.alfredworkflow
+└── workflow-name/
+    ├── info.plist
+    ├── icon.icns
+    └── README.md
+```
+
 ## Common Development Commands
 
 ### Workflow Validation
@@ -19,11 +40,18 @@ plutil -lint workflow-name/info.plist
 
 ### Workflow Packaging
 ```bash
-# Create a distributable .alfredworkflow file
+# Create a distributable .alfredworkflow file (CORRECT METHOD)
+cd workflow-name/
+zip -r ../workflow-name.alfredworkflow .
+
+# OR from parent directory (ensures root-level files)
 zip -r workflow-name.alfredworkflow workflow-name/
 
 # Package the screenshot workflow
-zip -r screenshot-capture.alfredworkflow screenshot-capture/
+cd screenshot-capture/
+zip -r ../screenshot-capture.alfredworkflow .
+
+# ALWAYS TEST: Double-click the .alfredworkflow file to verify import works
 ```
 
 ### File Structure Management
@@ -41,7 +69,8 @@ find . -maxdepth 2 -type d -name "info.plist" | sed 's|/info.plist||'
 
 1. **Working Workflows**: Complete, functional Alfred workflows (e.g., `screenshot-capture/`)
 2. **Template System**: Reusable template in `template/` with validated plist structure
-3. **Documentation**: Comprehensive guides and API references
+3. **Development Workflow**: Advanced tools in `dev-workflow/` with automated scripts and smart snippets
+4. **Documentation**: Comprehensive guides and API references
 
 ### Alfred Workflow Structure
 
@@ -68,6 +97,13 @@ Workflows use `/bin/bash` scripts that:
 3. Provide feedback via `echo` and notifications
 4. Copy results to clipboard with `pbcopy`
 5. Handle errors gracefully with `osascript` notifications
+
+### Development Workflow Integration
+The `dev-workflow/` directory contains:
+- **Automated Scripts**: `dev-integration.sh`, `auto-debug.sh` for development automation
+- **Smart Snippets**: 50+ pre-configured Alfred snippets for Claude Code integration
+- **Optimized Workflows**: Advanced workflows with Claude Code integration
+- **Setup Scripts**: One-click installation and configuration
 
 ## Development Workflow
 
@@ -104,6 +140,9 @@ Workflows use `/bin/bash` scripts that:
 - **`template/README.md`**: Complete development reference with examples
 - **`DEVELOPMENT_TUTORIAL.md`**: Comprehensive workflow development guide
 - **`README.md`**: Project overview and screenshot workflow documentation
+- **`dev-workflow/README.md`**: Advanced development workflow integration guide
+- **`dev-workflow/snippets/claude-snippets.txt`**: 50+ pre-configured Alfred snippets for Claude Code
+- **`dev-workflow/scripts/dev-integration.sh`**: Core development environment setup script
 
 ## Testing Environment
 
@@ -112,3 +151,26 @@ Workflows require:
 - macOS for `screencapture` and system commands
 - Manual testing in Alfred (no automated test framework)
 - Screen recording permissions for screenshot functionality
+- **Critical**: Always test workflow import by double-clicking .alfredworkflow files
+
+## Development Integration
+
+### Automated Development Environment
+The `dev-workflow/scripts/` directory provides automated setup:
+- **dev-integration.sh**: Creates standard directories (`~/Desktop/dev-scripts/`, `~/Desktop/dev-logs/`, etc.)
+- **auto-debug.sh**: Automated debugging workflow with Claude Code integration
+- **setup.sh**: One-click installation of all workflows and snippets
+
+### Smart Snippets System
+Alfred snippets in `dev-workflow/snippets/claude-snippets.txt` provide:
+- Error debugging commands (`err_analyze`, `err_debug`, `err_fix`)
+- Screenshot analysis commands (`sc_error`, `sc_bug`, `sc_ui`)
+- Code review commands (`code_review`, `code_optimize`, `code_refactor`)
+- Development workflow commands (`dev_test`, `dev_build`, `dev_deploy`)
+
+### Standard Directory Structure
+Development workflows use standardized directories:
+- `~/Desktop/dev-logs/`: Error logs and development notes
+- `~/Desktop/dev-screenshots/`: Development screenshots
+- `~/Desktop/dev-monitor/`: Chrome monitoring data
+- `~/Desktop/dev-scripts/`: Executable development scripts
